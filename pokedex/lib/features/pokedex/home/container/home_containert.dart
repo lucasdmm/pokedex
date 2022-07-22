@@ -4,8 +4,8 @@ import 'package:pokedex/shared/errors/failiure.dart';
 
 import '../../../../shared/models/pokemon.dart';
 import '../../../../shared/repo/pokemon_repository.dart';
-import '../../../../shared/widgets/poke_error.dart';
-import '../../../../shared/widgets/poke_loading.dart';
+import '../../../../shared/widgets/poke_error_widget.dart';
+import '../../../../shared/widgets/poke_loading_widget.dart';
 import '../pages/home_page.dart';
 
 class HomeContainer extends StatelessWidget {
@@ -23,7 +23,7 @@ class HomeContainer extends StatelessWidget {
         future: repo.getAllPkm(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const PokeLoading();
+            return const PokeLoadingWidget();
           }
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
@@ -31,7 +31,7 @@ class HomeContainer extends StatelessWidget {
           }
 
           if (snapshot.hasError) {
-            return PokeError(
+            return PokeErrorWidget(
               errorMessage: (snapshot.error as Failiure).message!,
             );
           }

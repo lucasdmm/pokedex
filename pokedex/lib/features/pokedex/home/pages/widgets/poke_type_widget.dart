@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:pokedex/shared/theme/color_type.dart';
 import 'package:pokedex/shared/theme/poke_style.dart';
+import 'package:pokedex/shared/util/util_method.dart';
 
 class PokeTypeWidget extends StatelessWidget {
   const PokeTypeWidget({Key? key, required this.typeName}) : super(key: key);
@@ -18,7 +19,7 @@ class PokeTypeWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              ' $typeName ',
+              UtilMethod.upCaseFirstLetter(text: typeName),
               style: PokeStyle.pokeName,
             ),
           ],

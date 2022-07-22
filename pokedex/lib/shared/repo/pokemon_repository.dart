@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:pokedex/shared/errors/failiure.dart';
 
@@ -8,6 +6,7 @@ import 'constants.dart';
 
 abstract class IPokemonRepository {
   Future<List<Pokemon>> getAllPkm();
+  Future<PokeDetailData> getDetail({required String pokeName});
 }
 
 class PokemonRepository implements IPokemonRepository {
@@ -18,11 +17,22 @@ class PokemonRepository implements IPokemonRepository {
   @override
   Future<List<Pokemon>> getAllPkm() async {
     try {
-      final response = await dio.get(PokeAPI.allPokemonsURL);
+      final response = await dio.get(PokeAPI.allPoke);
+      final data =
+          response.data['results'].map((pk) => Pokemon.fromMap(pk)).toList();
+      final list = data.cast<Pokemon>();
+      return list;
+    } catch (e) {
+      throw Failiure(message: 'Não Foi Possível carregar os dados!');
+    }
+  }
 
-      final json = jsonDecode(response.data) as Map<String, dynamic>;
-      final list = json['pokemon'] as List<dynamic>;
-      return list.map((e) => Pokemon.fromMap(e)).toList();
+  @override
+  Future<PokeDetailData> getDetail({required String pokeName}) async {
+    try {
+      final response = await dio.get(PokeAPI.pokemonV2Url + pokeName);
+      final data = PokeDetailData.fromMap(response.data);
+      return data;
     } catch (e) {
       throw Failiure(message: 'Não Foi Possível carregar os dados!');
     }

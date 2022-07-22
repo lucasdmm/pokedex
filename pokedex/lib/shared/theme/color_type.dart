@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ColorType {
-  static Color? grass = const Color.fromARGB(255, 11, 168, 17);
+  static Color? grass = const Color.fromARGB(255, 43, 156, 47);
   static Color? bug = const Color.fromARGB(255, 92, 255, 98);
   static Color? fire = const Color.fromARGB(255, 255, 0, 0);
   static Color? water = Colors.blue[800];
@@ -15,51 +15,75 @@ class ColorType {
   static Color? ice = const Color.fromARGB(255, 92, 174, 242);
   static Color? fighting = const Color.fromARGB(255, 240, 96, 96);
   static Color? dragon = const Color.fromARGB(255, 3, 56, 98);
+  static Color? ghost = const Color.fromARGB(255, 58, 2, 154);
+  static Color? steal = const Color.fromARGB(255, 101, 98, 107);
+  static Color? dark = const Color.fromARGB(255, 59, 58, 62);
+  static Color? fairy = const Color.fromARGB(255, 255, 168, 216);
+  static Color? unknown = const Color.fromARGB(255, 82, 78, 80);
+  static Color? shadow = const Color.fromARGB(255, 65, 52, 88);
 
   static Color getColorType(String type) {
     Color typeColor = Colors.white;
     switch (type) {
-      case 'Grass':
+      case 'grass':
         typeColor = grass!;
         break;
-      case 'Bug':
+      case 'steal':
+        typeColor = steal!;
+        break;
+      case 'dark':
+        typeColor = dark!;
+        break;
+      case 'fairy':
+        typeColor = fairy!;
+        break;
+      case 'unknown':
+        typeColor = unknown!;
+        break;
+      case 'shadow':
+        typeColor = shadow!;
+        break;
+      case 'bug':
         typeColor = bug!;
         break;
-      case 'Flying':
+      case 'flying':
         typeColor = flying!;
         break;
-      case 'Normal':
+      case 'normal':
         typeColor = normal!;
         break;
-      case 'Poison':
+      case 'poison':
         typeColor = poison!;
         break;
-      case 'Fire':
+      case 'fire':
         typeColor = fire!;
         break;
-      case 'Water':
+      case 'water':
         typeColor = water!;
         break;
-      case 'Electric':
+      case 'electric':
         typeColor = electric!;
         break;
-      case 'Psychic':
+      case 'psychic':
         typeColor = psychic!;
         break;
-      case 'Rock':
+      case 'rock':
         typeColor = rock!;
         break;
-      case 'Ground':
+      case 'ground':
         typeColor = ground!;
         break;
-      case 'Ice':
+      case 'ice':
         typeColor = ice!;
         break;
-      case 'Fighting':
+      case 'fighting':
         typeColor = fighting!;
         break;
-      case 'Dragon':
+      case 'dragon':
         typeColor = dragon!;
+        break;
+      case 'ghost':
+        typeColor = ghost!;
         break;
     }
     return typeColor;
