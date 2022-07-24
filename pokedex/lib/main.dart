@@ -7,8 +7,10 @@ import 'shared/repo/pokemon_repository.dart';
 
 void main() {
   runApp(const MyApp());
-  SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    systemNavigationBarColor: Colors.black,
+  ));
 }
 
 class MyApp extends StatelessWidget {

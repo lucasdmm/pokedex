@@ -24,6 +24,12 @@ class _DataLoadingState extends State<DataLoading>
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _ctrl.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 5),

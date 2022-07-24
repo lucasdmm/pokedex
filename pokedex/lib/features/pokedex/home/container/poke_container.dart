@@ -31,7 +31,7 @@ class PokeContainer extends StatelessWidget {
             return PokemonWidget(
               pokemon: pokemon,
               onPokeTap: onPokeTap,
-              detail: snapshot.data as PokeDetailData,
+              detail: snapshot.data! as PokeDetailData,
             );
           }
           if (snapshot.hasError) {

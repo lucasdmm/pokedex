@@ -29,6 +29,7 @@ class Pokemon {
 
 class PokeDetailData {
   PokeDetailData({
+    required this.name,
     required this.moves,
     required this.types,
     required this.id,
@@ -38,6 +39,7 @@ class PokeDetailData {
     required this.frontImg,
   });
 
+  final String name;
   final List<String> types;
   final List<String> moves;
   final int id;
@@ -61,6 +63,7 @@ class PokeDetailData {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'name': name,
       'types': types,
       'moves': moves,
       'id': id,
@@ -73,6 +76,7 @@ class PokeDetailData {
 
   factory PokeDetailData.fromMap(Map<String, dynamic> map) {
     return PokeDetailData(
+        name: map['name'] as String,
         moves: map['moves']
             .map((e) => e['move']['name'] as String)
             .toList()

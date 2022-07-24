@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:pokedex/features/pokedex/details/container/detail_container.dart';
@@ -19,7 +21,7 @@ class PokemonWidget extends StatelessWidget {
   final Function(String, DetailArguments) onPokeTap;
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () => onPokeTap('/details', DetailArguments(pokemon: pokemon)),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 5),
@@ -39,62 +41,65 @@ class PokemonWidget extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
         ),
-        child: Column(
+        child: Stack(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: 120,
-                    child: Text(
-                      UtilMethod.upCaseFirstLetter(text: pokemon.name),
-                      style: const TextStyle(
-                          color: Colors.black45,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: 120,
+                        child: Text(
+                          UtilMethod.upCaseFirstLetter(text: pokemon.name),
+                          style: const TextStyle(
+                              color: Colors.black45,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Text(
+                        '#${detail.num}',
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black.withOpacity(.70),
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
                   ),
-                  Text(
-                    '#${detail.num}',
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black.withOpacity(.70),
-                        fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 5),
-              child: Stack(
-                children: [
-                  Column(
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: detail.types
                         .map((type) => PokeTypeWidget(typeName: type))
                         .toList(),
                   ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: SizedBox(
-                      height: 60,
-                      width: 90,
-                      child: CachedNetworkImage(
-                        imageUrl: detail.frontImg,
-                        fit: BoxFit.cover,
-                        placeholder: (context, url) =>
-                            Image.asset('images/pkbc.png'),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: CachedNetworkImage(
+                  imageUrl: detail.frontImg,
+                  height: 100,
+                  width: 100,
+                  placeholder: (context, url) =>
+                      Image.asset('images/pkbc.png', scale: 6.0),
+                  errorWidget: (context, url, error) {
+                    if (const HttpException('Invalid statusCode: 404') ==
+                        error) {
+                      return Image.asset('images/pkbc.png');
+                    }
+                    return Image.asset('images/pkbc.png');
+                  }),
+            ),
           ],
         ),
       ),

@@ -29,6 +29,9 @@ environment:
 dependencies:
   dio: ^4.0.6
   cached_network_image: ^3.2.1
+  bloc: ^8.0.3
+  flutter_bloc: ^8.0.1
+  equatable: ^2.0.3
   flutter:
     sdk: flutter
 
@@ -63,6 +66,7 @@ flutter:
   assets:
    - images/pokeball.png
    - images/pkbc.png
+   - images/pokedex_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
