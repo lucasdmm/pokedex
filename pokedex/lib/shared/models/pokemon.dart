@@ -2,50 +2,22 @@
 import 'dart:convert';
 
 class Pokemon {
-  Pokemon({
-    required this.id,
-    required this.num,
-    required this.name,
-    required this.img,
-    required this.type,
-    required this.height,
-    required this.weight,
-    required this.weaknesses,
-  });
+  Pokemon({required this.name, required this.url});
 
-  final String num;
   final String name;
-  final int id;
-  final String img;
-  final List<String> type;
-  final String height;
-  final String weight;
-  final List<String> weaknesses;
+  final String url;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'num': num,
       'name': name,
-      'id': id,
-      'img': img,
-      'type': type,
-      'height': height,
-      'weight': weight,
-      'weaknesses': weaknesses,
+      'url': url,
     };
   }
 
   factory Pokemon.fromMap(Map<String, dynamic> map) {
     return Pokemon(
-      id: map['id'] as int,
-      num: map['num'] as String,
       name: map['name'] as String,
-      img: map['img'] as String,
-      type: (map['type'] as List<dynamic>).map((e) => e as String).toList(),
-      height: map['height'] as String,
-      weight: map['weight'] as String,
-      weaknesses:
-          (map['weaknesses'] as List<dynamic>).map((e) => e as String).toList(),
+      url: map['url'] as String,
     );
   }
 
@@ -53,4 +25,75 @@ class Pokemon {
 
   factory Pokemon.fromJson(String source) =>
       Pokemon.fromMap(json.decode(source) as Map<String, dynamic>);
+}
+
+class PokeDetailData {
+  PokeDetailData({
+    required this.name,
+    required this.moves,
+    required this.types,
+    required this.id,
+    required this.weight,
+    required this.height,
+    required this.backImg,
+    required this.frontImg,
+  });
+
+  final String name;
+  final List<String> types;
+  final List<String> moves;
+  final int id;
+  final int weight;
+  final int height;
+  final String backImg;
+  final String frontImg;
+
+  String get num {
+    switch (id.toString().length) {
+      case 1:
+        return '00${id.toString()}';
+
+      case 2:
+        return '0${id.toString()}';
+      case 3:
+        return id.toString();
+    }
+    return '';
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'name': name,
+      'types': types,
+      'moves': moves,
+      'id': id,
+      'weight': weight,
+      'height': height,
+      'backImg': backImg,
+      'frontImg': frontImg,
+    };
+  }
+
+  factory PokeDetailData.fromMap(Map<String, dynamic> map) {
+    return PokeDetailData(
+        name: map['name'] as String,
+        moves: map['moves']
+            .map((e) => e['move']['name'] as String)
+            .toList()
+            .cast<String>(),
+        types: map['types']
+            .map((e) => e['type']['name'] as String)
+            .toList()
+            .cast<String>(),
+        id: map['id'] as int,
+        weight: map['weight'] as int,
+        height: map['height'] as int,
+        backImg: map['sprites']['back_default'] as String,
+        frontImg: map['sprites']['front_default'] as String);
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory PokeDetailData.fromJson(String source) =>
+      PokeDetailData.fromMap(json.decode(source) as Map<String, dynamic>);
 }

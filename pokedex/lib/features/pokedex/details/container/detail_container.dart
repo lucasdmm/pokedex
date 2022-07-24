@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../../../../shared/errors/failiure.dart';
 import '../../../../shared/models/pokemon.dart';
 import '../../../../shared/repo/pokemon_repository.dart';
-import '../../../../shared/widgets/poke_error.dart';
-import '../../../../shared/widgets/poke_loading.dart';
+import '../../../../shared/widgets/poke_error_widget.dart';
+import '../../../../shared/widgets/poke_loading_widget.dart';
 import '../pages/detail_page.dart';
 
 class DetailArguments {
-  DetailArguments({required this.name});
+  DetailArguments({required this.pokemon});
 
-  final String name;
+  final Pokemon pokemon;
 }
 
 class DetailContainer extends StatelessWidget {
@@ -26,18 +26,18 @@ class DetailContainer extends StatelessWidget {
         future: repo.getAllPkm(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const PokeLoading();
+            return const PokeLoadingWidget();
           }
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.hasData) {
             return DetailPage(
-              name: arguments.name,
+              pokemon: arguments.pokemon,
               list: snapshot.data!,
             );
           }
 
           if (snapshot.hasError) {
-            return PokeError(
+            return PokeErrorWidget(
               errorMessage: (snapshot.error as Failiure).message!,
             );
           }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PokeLoading extends StatelessWidget {
-  const PokeLoading({Key? key}) : super(key: key);
+class PokeLoadingWidget extends StatelessWidget {
+  const PokeLoadingWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
