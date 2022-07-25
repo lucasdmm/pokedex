@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex/features/pokedex/home/blocs/filter/filter_bloc.dart';
 
 class TitleSearchBarWidget extends StatefulWidget {
-  const TitleSearchBarWidget({Key? key}) : super(key: key);
-
+  const TitleSearchBarWidget({Key? key, required this.bloc}) : super(key: key);
+  final FilterBloc bloc;
   @override
   State<TitleSearchBarWidget> createState() => _TitleSearchBarWidgetState();
 }
 
 class _TitleSearchBarWidgetState extends State<TitleSearchBarWidget> {
+  void filterPokemon(String query) {}
   bool _shouldSwitch = false;
   Widget shwitch() {
     if (_shouldSwitch) {
@@ -19,7 +21,10 @@ class _TitleSearchBarWidgetState extends State<TitleSearchBarWidget> {
             width: 170,
             child: TextField(
               maxLines: 1,
-              onChanged: (value) {},
+              onChanged: (value) {
+                widget.bloc.add(TextFilterUpdatedEvent(
+                    query: value, list: widget.bloc.list));
+              },
               decoration: InputDecoration(
                   hintTextDirection: TextDirection.ltr,
                   suffixIcon: IconButton(

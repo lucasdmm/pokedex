@@ -76,20 +76,20 @@ class PokeDetailData {
 
   factory PokeDetailData.fromMap(Map<String, dynamic> map) {
     return PokeDetailData(
-        name: map['name'] as String,
-        moves: map['moves']
+        name: (map['name'] ?? '') as String,
+        moves: (map['moves'] ?? [])
             .map((e) => e['move']['name'] as String)
             .toList()
             .cast<String>(),
-        types: map['types']
+        types: (map['types'] ?? [])
             .map((e) => e['type']['name'] as String)
             .toList()
             .cast<String>(),
-        id: map['id'] as int,
-        weight: map['weight'] as int,
-        height: map['height'] as int,
-        backImg: map['sprites']['back_default'] as String,
-        frontImg: map['sprites']['front_default'] as String);
+        id: (map['id'] ?? 0) as int,
+        weight: (map['weight'] ?? 0) as int,
+        height: (map['height'] ?? 0) as int,
+        backImg: (map['sprites']['back_default'] ?? '') as String,
+        frontImg: (map['sprites']['front_default'] ?? '') as String);
   }
 
   String toJson() => json.encode(toMap());

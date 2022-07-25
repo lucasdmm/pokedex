@@ -8,9 +8,10 @@ import '../../../../shared/widgets/poke_loading_widget.dart';
 import '../pages/detail_page.dart';
 
 class DetailArguments {
-  DetailArguments({required this.pokemon});
+  DetailArguments({required this.pokemon, required this.detail});
 
   final Pokemon pokemon;
+  final PokeDetailData detail;
 }
 
 class DetailContainer extends StatelessWidget {
@@ -32,7 +33,7 @@ class DetailContainer extends StatelessWidget {
               snapshot.hasData) {
             return DetailPage(
               pokemon: arguments.pokemon,
-              list: snapshot.data!,
+              detail: arguments.detail,
             );
           }
 
