@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 
 class PokeballRotateWidget extends StatefulWidget {
   const PokeballRotateWidget(
-      {Key? key, required this.child, this.hasToStop = true})
+      {Key? key,
+      required this.child,
+      this.hasToStop = true,
+      this.miliseconds = 500})
       : super(key: key);
   final Widget child;
   final bool hasToStop;
+  final int miliseconds;
 
   @override
   State<PokeballRotateWidget> createState() => _PokeballRotateWidgetState();
@@ -26,13 +30,13 @@ class _PokeballRotateWidgetState extends State<PokeballRotateWidget>
   void initState() {
     super.initState();
     _ctrl = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
+        vsync: this, duration: Duration(milliseconds: widget.miliseconds));
     setRotation(360);
     _ctrl.forward(from: 0);
 
     _ctrl.addStatusListener((status) async {
       if (status == AnimationStatus.completed) {
-        _ctrl.repeat(period: const Duration(milliseconds: 500));
+        _ctrl.repeat(period: Duration(milliseconds: widget.miliseconds));
       }
     });
     if (widget.hasToStop) {
@@ -43,8 +47,9 @@ class _PokeballRotateWidgetState extends State<PokeballRotateWidget>
 
   @override
   void dispose() {
-    super.dispose();
+    _ctrl.stop();
     _ctrl.dispose();
+    super.dispose();
   }
 
   @override

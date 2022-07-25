@@ -5,7 +5,10 @@ import 'package:pokedex/shared/repo/pokemon_repository.dart';
 import 'home/container/home_containert.dart';
 
 class PokedexRoute extends StatelessWidget {
-  const PokedexRoute({Key? key, required this.repo}) : super(key: key);
+  const PokedexRoute({
+    Key? key,
+    required this.repo,
+  }) : super(key: key);
   final PokemonRepository repo;
   @override
   Widget build(BuildContext context) {

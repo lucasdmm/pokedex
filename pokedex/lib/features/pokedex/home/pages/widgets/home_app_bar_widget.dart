@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex/features/pokedex/home/blocs/filter/filter_bloc.dart';
+import 'package:pokedex/features/pokedex/home/pages/widgets/filter_menu_item_widget.dart';
 import 'package:pokedex/features/pokedex/home/pages/widgets/title_search_bar_widget.dart';
 
-class HomeAppBarWidget extends StatelessWidget implements PreferredSize {
-  const HomeAppBarWidget({Key? key}) : super(key: key);
+import '../../blocs/generation/generation_bloc.dart';
 
+class HomeAppBarWidget extends StatelessWidget implements PreferredSize {
+  const HomeAppBarWidget(
+      {Key? key, required this.bloc, required this.generation})
+      : super(key: key);
+  final FilterBloc bloc;
+  final GenerationBloc generation;
   @override
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
       backgroundColor: Colors.transparent,
-      title: const TitleSearchBarWidget(),
-      actions: [
-        InkWell(
-          onTap: () {},
-          child: Image.asset('images/pokedex_icon.png', scale: 1),
-        )
-      ],
+      title: TitleSearchBarWidget(
+        bloc: bloc,
+      ),
+      actions: [FilterMenuItemWidget(generation: generation)],
     );
   }
 

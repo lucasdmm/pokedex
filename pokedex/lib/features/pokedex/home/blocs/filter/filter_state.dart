@@ -1,16 +1,17 @@
 part of 'filter_bloc.dart';
 
 abstract class FilterState extends Equatable {
-  const FilterState();
+  const FilterState({required this.pokemons});
+  final List<Pokemon> pokemons;
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [pokemons];
 }
 
-class FilterLoading extends FilterState {}
+class FilterInitialState extends FilterState {
+  FilterInitialState() : super(pokemons: []);
+}
 
-class FilterLoaded extends FilterState {
-  const FilterLoaded({required this.filter});
-  final Filter filter;
-  @override
-  List<Object?> get props => [filter];
+class FilterSuccessState extends FilterState {
+  const FilterSuccessState({required List<Pokemon> list})
+      : super(pokemons: list);
 }

@@ -3,25 +3,30 @@ part of 'filter_bloc.dart';
 abstract class FilterEvent extends Equatable {}
 
 class FilterLoadEvent extends FilterEvent {
-  FilterLoadEvent({required this.filter});
-  String filter;
-
   @override
   List<Object?> get props => [];
 }
 
-class GenerationFilterUpdatedEvent extends FilterEvent {
-  GenerationFilterUpdatedEvent({required this.genarationFilter});
-  final GenerationFilter genarationFilter;
-
+class FilterLoadGenerationEvent extends FilterEvent {
   @override
-  List<Object?> get props => [genarationFilter];
+  List<Object?> get props => [];
 }
 
 class TextFilterUpdatedEvent extends FilterEvent {
-  TextFilterUpdatedEvent({required this.query});
-  final TextFilter query;
+  TextFilterUpdatedEvent(
+      {required this.query, required this.list, this.generation});
+  final String query;
+  final List<Pokemon> list;
+  final String? generation;
 
   @override
-  List<Object?> get props => [query];
+  List<Object?> get props => [query, list, generation];
+}
+
+class FilterErrorEvent extends FilterEvent {
+  FilterErrorEvent({required this.errorMessage});
+  final String errorMessage;
+
+  @override
+  List<Object?> get props => throw UnimplementedError();
 }

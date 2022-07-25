@@ -8,7 +8,7 @@ import 'constants.dart';
 abstract class IPokemonRepository {
   Future<List<Pokemon>> getAllPkm();
   Future<PokeDetailData> getDetail({required String pokeName});
-  Future<Generation> getGeneration({required int generationId});
+  Future<List<Pokemon>> getPkByGeneration({required String generationId});
 }
 
 class PokemonRepository implements IPokemonRepository {
@@ -42,12 +42,12 @@ class PokemonRepository implements IPokemonRepository {
   }
 
   @override
-  Future<Generation> getGeneration({required int generationId}) async {
+  Future<List<Pokemon>> getPkByGeneration(
+      {required String generationId}) async {
     try {
-      final response =
-          await dio.get(PokeAPI.generation + generationId.toString());
+      final response = await dio.get(PokeAPI.generation + generationId);
       final data = Generation.fromMap(response.data);
-      return data;
+      return data.pokemons;
     } catch (e) {
       throw Failiure(message: 'Não Foi Possível carregar os dados!');
     }
